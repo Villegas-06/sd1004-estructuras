@@ -82,7 +82,7 @@ Vas a guardar las calificaciones de 6 estudiantes de un curso en un arreglo llam
 
 1.  Dibuja el arreglo con sus 6 casillas, mostrando el índice de cada una (recuerda: empieza en 0).\
     \
-    R: ![](taller_media/media/image1.png){width="5.483092738407699in" height="1.5218405511811024in"}
+    R: ![](media/image1.png)
 
 2.  Si notas = \[3.5, 4.2, 2.8, 5.0, 3.9, 4.5\], ¿qué valor y qué índice tiene la tercera nota que ingresaste?\
     \
@@ -165,7 +165,7 @@ Vas a guardar la disposición de un salón de clase de 3 filas x 4 columnas, don
     \
     R:\
     \
-    ![](taller_media/media/image2.png){width="4.79417760279965in" height="3.676187664041995in"}
+    ![](media/image2.png)
 
 2.  Escribe (en pseudocódigo) cómo accedes al puesto de la fila 2, columna 3.\
     \
@@ -195,7 +195,7 @@ Supón que salon (3 filas x 4 columnas) se guarda empezando en la dirección **0
 1.  Dibuja cómo quedarían las 12 casillas de salon en una sola fila de memoria (aplanadas).\
     \
     R:\
-    ![](taller_media/media/image3.png){width="5.687353455818022in" height="0.5875262467191601in"}
+    ![](media/image3.png)
 
 2.  Calcula la dirección de memoria de la casilla \[1\]\[2\], usando la fórmula:
 
