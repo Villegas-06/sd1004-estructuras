@@ -1,0 +1,238 @@
+# Taller de Pilas, Colas y Listas Enlazadas
+
+**Asignatura:** Estructura de Datos — Institución Universitaria Pascual Bravo
+
+## Parte 1 — Elegir la estructura adecuada
+
+**1. Editor de texto que permite deshacer empezando por la última acción.** La estructura indicada es una **pila**. La acción más reciente es la primera que debe revertirse, es decir, el último en entrar es el primero en salir (LIFO). Cada cambio se apila encima del anterior y "deshacer" simplemente quita el de arriba.
+
+**2. Fila de atención donde se atiende primero a quien llegó primero.** Aquí corresponde una **cola**. Funciona bajo FIFO: quien entra de primero sale de primero, igual que en cualquier sistema de turnos.
+
+**3. Reproductor que, al terminar la última canción, regresa a la primera.** La opción es una **lista circular**. El último nodo no termina en null, sino que su enlace "siguiente" vuelve a apuntar al primero, de modo que el recorrido se repite sin fin.
+
+**4. Recorrido en un solo sentido con inserciones frecuentes al inicio.** Basta una **lista enlazada simple**. Insertar al inicio cuesta O(1): se crea el nodo, se enlaza con la cabeza actual y la cabeza pasa a ser el nodo nuevo. No hay que mover nada más.
+
+**5. Reproductor que permite ir a la canción anterior o a la siguiente.** Se necesita una **lista doblemente enlazada**. Cada nodo guarda una referencia al siguiente y otra al anterior, así que se puede avanzar o retroceder desde cualquier posición.
+
+## Parte 2 — Pilas (LIFO)
+
+### 2.1 Seguimiento de operaciones
+
+Se escribe cada pila de tope a base.
+
+| Paso | Operación | Pila (tope → base) | Tope | Resultado |
+| --- | --- | --- | --- | --- |
+| 1 | push(4) | \[4\] | 4 | — |
+| 2 | push(9) | \[9, 4\] | 9 | — |
+| 3 | push(2) | \[2, 9, 4\] | 2 | — |
+| 4 | pop() | \[9, 4\] | 9 | devuelve 2 |
+| 5 | push(7) | \[7, 9, 4\] | 7 | — |
+| 6 | peek() | \[7, 9, 4\] | 7 | muestra 7 (sin retirarlo) |
+| 7 | pop() | \[9, 4\] | 9 | devuelve 7 |
+| 8 | pop() | \[4\] | 4 | devuelve 9 |
+
+Al terminar queda un solo elemento, el **4**, que es también el tope.
+
+### 2.2 Casos límite
+
+1. **pop() con la pila vacía:** no hay nada que retirar, así que ocurre un *underflow* (error por intentar sacar de una estructura sin elementos). Se evita comprobando antes si la pila está vacía y, en ese caso, avisando del error o devolviendo nulo.
+2. **peek() con la pila vacía:** el problema es el mismo, pues no existe un tope que consultar. Se resuelve con la misma verificación previa.
+3. **Pseudocódigo de deshacer:**
+
+```
+funcion deshacer(pila)
+    si pila.estaVacia() entonces
+        escribir "No hay acciones para deshacer"
+        devolver nulo
+    fin si
+    accion = pila.pop()
+    devolver accion
+fin funcion
+```
+
+### 2.3 Aplicación: deshacer acciones
+
+Estado de la pila (el tope está arriba):
+
+```
+| pegar    |  <- tope
+| borrar   |
+| escribir |  <- base
+```
+
+- Primer "deshacer": se retira *pegar* y el tope pasa a ser *borrar*.
+- Segundo "deshacer": se retira *borrar* y queda únicamente *escribir*, que es a la vez tope y base.
+
+**La primera acción en deshacerse es "pegar"**, porque fue la última en registrarse y por tanto está en la cima. Esa es justamente la lógica LIFO.
+
+## Parte 3 — Colas (FIFO)
+
+### 3.1 Simulación de la fila
+
+Se escribe cada cola de frente a final.
+
+| Paso | Operación | Cola |
+| --- | --- | --- |
+| 1 | encolar(Ana) | \[Ana\] |
+| 2 | encolar(Luis) | \[Ana, Luis\] |
+| 3 | encolar(Sol) | \[Ana, Luis, Sol\] |
+| 4 | desencolar() → Ana | \[Luis, Sol\] |
+| 5 | encolar(Mia) | \[Luis, Sol, Mia\] |
+| 6 | desencolar() → Luis | \[Sol, Mia\] |
+| 7 | encolar(Teo) | \[Sol, Mia, Teo\] |
+
+La primera salida fue **Ana** y la segunda **Luis**. Siguen esperando **Sol, Mia y Teo**, con Sol al frente y Teo al final.
+
+### 3.2 Operaciones y casos límite
+
+1. **Pseudocódigo de atender:**
+
+```
+funcion atender(cola)
+    si cola.estaVacia() entonces
+        escribir "No hay nadie por atender"
+        devolver nulo
+    fin si
+    persona = cola.desencolar()
+    devolver persona
+fin funcion
+```
+
+2. **Desencolar con la cola vacía:** produce un error porque no hay frente que retirar. Por eso se consulta `estaVacia()` antes de tocar cualquier referencia.
+3. **¿Qué pasa si se agrega por el frente y se retira por el final?** Sigue siendo FIFO. Lo que define a una cola es que el elemento más antiguo sale primero; que el "lado de entrada" y el "lado de salida" se llamen de una u otra forma, o estén invertidos físicamente, no cambia ese orden de atención.
+
+## Parte 4 — Listas enlazadas simples
+
+### 4.1 Construcción y modificación
+
+1. Insertar 18 al final: `Cabeza → [18] → null`
+2. Insertar 7 al inicio: `Cabeza → [7] → [18] → null`
+3. Insertar 24 al final: `Cabeza → [7] → [18] → [24] → null`
+4. Insertar 13 después de 7: `Cabeza → [7] → [13] → [18] → [24] → null`
+5. Eliminar el 18: `Cabeza → [7] → [13] → [24] → null`
+
+**Resultado final:** `Cabeza → [7] → [13] → [24] → null`
+
+### 4.2 Diseño de operaciones
+
+**Recorrer e imprimir:**
+
+```
+funcion imprimirLista(cabeza)
+    actual = cabeza
+    mientras actual != nulo hacer
+        escribir actual.dato
+        actual = actual.siguiente
+    fin mientras
+fin funcion
+```
+
+**Buscar un valor:**
+
+```
+funcion existe(cabeza, valor)
+    actual = cabeza
+    mientras actual != nulo hacer
+        si actual.dato == valor entonces
+            devolver Verdadero
+        fin si
+        actual = actual.siguiente
+    fin mientras
+    devolver Falso
+fin funcion
+```
+
+**Insertar al comienzo:**
+
+```
+funcion insertarInicio(cabeza, valor)
+    nodo = crearNodo(valor)
+    nodo.siguiente = cabeza
+    devolver nodo        // el nodo nuevo es la nueva cabeza
+fin funcion
+```
+
+### 4.3 Revisión de bordes
+
+- **Lista vacía:** la cabeza es null, así que el nodo nuevo queda apuntando a null y se convierte en la cabeza. Funciona sin código especial.
+- **Lista con elementos:** el nodo nuevo copia la referencia de la cabeza (queda enlazado al antiguo primero) y luego pasa a ser la cabeza. No se pierde ningún nodo.
+- **Eliminar el primer nodo:** basta con hacer `cabeza = cabeza.siguiente`. El nodo retirado queda sin referencias y el recolector de basura lo libera (en lenguajes sin recolector, habría que liberarlo manualmente).
+
+## Parte 5 — Listas circulares
+
+### 5.1 Recorrido circular
+
+Lista inicial: `P1 → P2 → P3 → (vuelve a P1)`. En el enunciado, P2 termina en su segunda ráfaga.
+
+| Turno | Se atiende | Sigue |
+| --- | --- | --- |
+| 1 | P1 | P2 |
+| 2 | P2 (1.ª ráfaga) | P3 |
+| 3 | P3 | P1 |
+| 4 | P1 | P2 |
+| 5 | P2 (2.ª ráfaga, termina y se elimina) | P3 |
+| 6 | P3 | P1 |
+| 7 | P1 | P3 |
+
+Tras sacar a P2 la lista queda: `P1 → P3 → (vuelve a P1)`.
+
+**Condición de parada:** como nunca se llega a null, se guarda el nodo de partida (`inicio = actual`) y se avanza hasta volver a él. Conviene usar un ciclo que ejecute primero y compare después (`hacer ... mientras actual != inicio`); con un `mientras` común la condición sería falsa desde el primer instante y el ciclo no correría.
+
+### 5.2 Casos especiales
+
+1. **Lista vacía:** la cabeza es null y no hay enlaces que ajustar.
+2. **Un solo nodo:** se apunta a sí mismo (`nodo.siguiente = nodo`). Si se elimina, la cabeza pasa a null.
+3. **Eliminar el primer nodo:** la cabeza avanza al segundo nodo, pero además hay que llegar hasta el último para que su enlace apunte a la nueva cabeza y el círculo siga cerrado.
+4. **Eliminar el último nodo:** se recorre hasta el penúltimo y se hace que apunte a la cabeza, cerrando de nuevo el ciclo.
+
+## Parte 6 — Listas doblemente enlazadas
+
+### 6.1 Recorrido en ambos sentidos
+
+```
+null ⇄ [Lunes] ⇄ [Martes] ⇄ [Miércoles] ⇄ [Jueves] ⇄ null
+```
+
+- Hacia adelante: Lunes → Martes → Miércoles → Jueves
+- Hacia atrás: Jueves → Miércoles → Martes → Lunes
+
+### 6.2 Inserciones y eliminación
+
+1. Insertar Domingo antes de Lunes: `null ⇄ [Domingo] ⇄ [Lunes] ⇄ [Martes] ⇄ [Miércoles] ⇄ [Jueves] ⇄ null`
+2. Insertar Viernes después de Jueves: `... ⇄ [Jueves] ⇄ [Viernes] ⇄ null`
+3. Eliminar Miércoles: `null ⇄ [Domingo] ⇄ [Lunes] ⇄ [Martes] ⇄ [Jueves] ⇄ [Viernes] ⇄ null`
+
+Punteros que cambian al borrar Miércoles:
+
+- `Martes.siguiente` pasa a apuntar a Jueves.
+- `Jueves.anterior` pasa a apuntar a Martes.
+
+### 6.3 Comparación con la lista simple
+
+**Ventaja:** se puede navegar en los dos sentidos directamente, sin recursión ni estructuras auxiliares, y se puede borrar un nodo conocido sin buscar a su predecesor.
+
+**Desventaja:** cada nodo ocupa más memoria por el puntero extra y las inserciones y eliminaciones exigen actualizar más enlaces, lo que hace el código más propenso a errores.
+
+## Parte 7 — Análisis y elección
+
+| Estructura | Operación | Complejidad | Justificación |
+| --- | --- | --- | --- |
+| Pila enlazada con referencia al tope | Insertar en el tope | O(1) | El nodo nuevo se enlaza al tope actual y pasa a ser el tope. |
+| Pila enlazada con referencia al tope | Retirar del tope | O(1) | Se quita el nodo del tope y el tope pasa al siguiente. |
+| Cola enlazada con frente y final | Encolar | O(1) | La referencia al final permite agregar sin recorrer la cola. |
+| Cola enlazada con frente y final | Desencolar | O(1) | Se retira el nodo del frente y se actualiza esa referencia. |
+| Lista simple sin referencia al último | Insertar al comienzo | O(1) | Solo se modifica la cabeza; el resto no se toca. |
+| Lista simple sin referencia al último | Insertar al final | O(n) | Hay que recorrer toda la lista para encontrar el último nodo. |
+| Lista doble con referencia a un nodo | Desconectar ese nodo | O(1) | Sus punteros anterior y siguiente permiten unir a sus vecinos directamente. |
+
+### Preguntas adicionales
+
+1. **¿Por qué encolar es más lento si la cola solo guarda el frente?** Sin referencia al último nodo, hay que partir del frente y avanzar nodo por nodo hasta el que apunta a null. El tiempo crece con el tamaño de la cola: O(n).
+2. **¿Qué ventaja da la lista circular para volver al primer elemento?** Como el último nodo ya enlaza con el primero, no hace falta preguntar por null ni reiniciar el recorrido a mano; el ciclo continúa solo, lo que simplifica tareas repetitivas como el planificador Round Robin.
+3. **¿Qué guarda de más una lista doble y para qué sirve?** Un puntero al nodo anterior en cada nodo. Con él se recorre en reversa y se elimina cualquier nodo conocido en O(1), sin buscar antes quién lo precede.
+
+## Parte 8 — Reflexión
+
+La manera en que se organizan y enlazan los datos en memoria influye directamente en qué tan rápido y simple resulta un algoritmo. La pila es la herramienta natural cuando lo último que se hizo debe deshacerse primero, como en el historial de un editor o en la pila de llamadas de un programa. La cola, en cambio, sirve cuando importa el orden de llegada, como en la gestión de procesos o la mensajería.
+
+En las listas, la decisión depende de cómo se acceda a los datos. La lista simple es suficiente y ligera si solo se avanza en un sentido. La circular encaja con tareas que se repiten en ciclo, como los turnos de un sistema operativo. La doble cuesta algo más de memoria, pero da libertad para moverse en ambas direcciones y modificar nodos en tiempo constante. En conclusión, ninguna estructura es mejor en todos los casos: cada una resuelve mejor un tipo de necesidad.
