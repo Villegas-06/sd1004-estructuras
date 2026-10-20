@@ -13,9 +13,9 @@ La asignación se hizo por orden alfabético de apellido, según el registro ini
 
 | Rol | Apellidos y nombres | Código estudiantil | Respuesta individual |
 |-----|---------------------|--------------------|----------------------|
-| A | Berrio Macias, Mariana | [código de Mariana] | [BerrioMariana-1](./individuales/Berrio-Macias-Mariana/) |
-| B | Correa Torres, Kevin Andres | 1017256307 | [CorreaKevin-2](./individuales/Correa-Torres-Kevin-Andres/) |
-| C | Montoya Villegas, Miguel Angel | 1193574251 | [MontoyaMiguel-3](./individuales/Montoya-Villegas-Miguel-Angel/) |
+| A | Berrio Macias, Mariana | [código de Mariana] | [BerrioMariana-1](./individuales/Berrio-Macias-Mariana.jpeg/) |
+| B | Correa Torres, Kevin Andres | 1017256307 | [CorreaKevin-2](./individuales/Correa-Torres-Kevin-Andres.jpeg/) |
+| C | Montoya Villegas, Miguel Angel | 1193574251 | [MontoyaMiguel-3](./individuales/Montoya-Villegas-Miguel-Angel.jpeg/) |
 
 ---
 
@@ -29,9 +29,9 @@ La asignación se hizo por orden alfabético de apellido, según el registro ini
 
 ### Respuestas individuales
 
-- [Integrante A: Mariana Berrio Macias](./individuales/Berrio-Macias-Mariana/)
-- [Integrante B: Kevin Andres Correa Torres](./individuales/Correa-Torres-Kevin-Andres/)
-- [Integrante C: Miguel Angel Montoya Villegas](./individuales/Montoya-Villegas-Miguel-Angel/)
+- [Integrante A: Mariana Berrio Macias](./individuales/Berrio-Macias-Mariana.jpeg)
+- [Integrante B: Kevin Andres Correa Torres](./individuales/Correa-Torres-Kevin-Andres.jpeg)
+- [Integrante C: Miguel Angel Montoya Villegas](./individuales/Montoya-Villegas-Miguel-Angel.jpeg)
 
 ---
 
@@ -52,19 +52,19 @@ La asignación se hizo por orden alfabético de apellido, según el registro ini
 ## 4. Vista rápida de las hojas
 
 ### Parte 1: Movimientos
-![Parte 1](./01-movimientos/)
+![Parte 1](./01-movimientos.png)
 
 ### Parte 2: Reparar listas
-![Parte 2](./02-reparar-listas/)
+![Parte 2](./02-reparar-listas.png)
 
 ### Parte 3: Elección de estructuras
-![Parte 3](./03-eleccion-estructuras/)
+![Parte 3](./03-eleccion-estructuras.png)
 
 ### Individual A: Mariana Berrio Macias
-![Individual A](./individuales/Berrio-Macias-Mariana/)
+![Individual A](./individuales/Berrio-Macias-Mariana.jpeg)
 
 ### Individual B: Kevin Andres Correa Torres
-![Individual B](./individuales/Correa-Torres-Kevin-Andres/)
+![Individual B](./individuales/Correa-Torres-Kevin-Andres.jpeg)
 
 ### Individual C: Miguel Angel Montoya Villegas
-![Individual C](./individuales/Montoya-Villegas-Miguel-Angel/)
+![Individual C](./individuales/Montoya-Villegas-Miguel-Angel.jpeg)
