@@ -42,9 +42,9 @@ La asignación se hizo por orden alfabético de apellido, según el registro ini
 | 01 Movimientos | [A/B/C] | [A/B/C] | [A/B/C] |
 | 02 Reparar listas | [A/B/C] | [A/B/C] | [A/B/C] |
 | 03 Elección de estructuras | [A/B/C] | [A/B/C] | [A/B/C] |
-| Individual A (Mariana) | A | A | [B o C] |
-| Individual B (Kevin) | B | B | [A o C] |
-| Individual C (Miguel) | C | C | [A o B] |
+| Individual A (Mariana) | A | A | A |
+| Individual B (Kevin) | B | B | B |
+| Individual C (Miguel) | C | C | C |
 
 ---
 
